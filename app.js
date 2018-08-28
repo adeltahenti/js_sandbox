@@ -105,7 +105,7 @@ console.log(mary.hasOwnProperty('getFullName'));
 */
 
 /**** Prototypal Inheritance ****/
-
+/* 
 // Person constructor
 function Person(firstName, lastName) {
   this.firstName = firstName;
@@ -145,4 +145,40 @@ Customer.prototype.greeting = function () {
   return `Hello there ${this.firstName} ${this.lastName}, welcome to our company.`;
 }
 
-console.log(customer1.greeting());
+console.log(customer1.greeting()); 
+*/
+
+/**** Using Object.create ****/
+
+const personPrototypes = {
+  greeting: function () {
+    return `Hello there ${this.firstName} ${this.lastName}`;
+  },
+  getMaried: function (newLastName) {
+    this.lastName = newLastName;
+  }
+}
+
+const mary = Object.create(personPrototypes);
+mary.firstName = 'Mary';
+mary.lastName = 'Williams';
+mary.age = 36;
+
+mary.getMaried('Johnson');
+
+console.log(mary.greeting());
+
+const adel = Object.create(personPrototypes, {
+  firstName: {
+    value: 'Adel'
+  },
+  lastName: {
+    value: 'Tahenti'
+  },
+  age: {
+    value: 50
+  }
+});
+
+console.log(adel);
+console.log(adel.greeting());
